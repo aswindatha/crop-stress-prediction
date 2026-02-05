@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Farm — Control & Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="page">
+    <div class="bg-glow" aria-hidden="true"></div>
+
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+          <div>
+            <h1 class="title">Smart Farm</h1>
+            <p class="tagline">Control · Monitor · Predict</p>
+          </div>
+        </div>
+        <div class="connection" id="connectionWrap">
+          <span class="connection-dot" id="connectionDot" aria-hidden="true"></span>
+          <span class="connection-label" id="serialStatus">Connecting…</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="panel control-panel" aria-labelledby="control-heading">
+        <h2 id="control-heading" class="panel-heading">
+          <span class="panel-heading-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          </span>
+          Relay control
+        </h2>
+
+        <div class="relay-grid">
+          <article class="relay-tile relay-motor">
+            <div class="relay-header">
+              <span class="relay-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+              </span>
+              <input type="text" id="motorName" class="relay-name" placeholder="Motor name" aria-label="Motor display name">
+            </div>
+            <div class="relay-actions">
+              <button type="button" class="toggle-btn on" id="motorOn" aria-pressed="false" aria-label="Turn motor on">ON</button>
+              <button type="button" class="toggle-btn off" id="motorOff" aria-pressed="false" aria-label="Turn motor off">OFF</button>
+            </div>
+            <p class="relay-state" id="motorState" aria-live="polite">—</p>
+          </article>
+
+          <article class="relay-tile relay-light">
+            <div class="relay-header">
+              <span class="relay-icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+              </span>
+              <input type="text" id="lightName" class="relay-name" placeholder="Light name" aria-label="Light display name">
+            </div>
+            <div class="relay-actions">
+              <button type="button" class="toggle-btn on" id="lightOn" aria-pressed="false" aria-label="Turn light on">ON</button>
+              <button type="button" class="toggle-btn off" id="lightOff" aria-pressed="false" aria-label="Turn light off">OFF</button>
+            </div>
+            <p class="relay-state" id="lightState" aria-live="polite">—</p>
+          </article>
+        </div>
+        <button type="button" class="btn-save-names" id="saveNames">Save names</button>
+      </section>
+
+      <section class="panel analytics-panel" aria-labelledby="analytics-heading">
+        <h2 id="analytics-heading" class="panel-heading">
+          <span class="panel-heading-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          </span>
+          Analytics <span class="panel-badge">24h</span>
+        </h2>
+
+        <div class="analytics-grid">
+          <div class="metric-card moisture-card">
+            <div class="metric-ring-wrap">
+              <svg class="metric-ring" viewBox="0 0 36 36" aria-hidden="true">
+                <path class="ring-bg" d="M18 2.084a15.916 15.916 0 0 1 0 31.832A15.916 15.916 0 0 1 18 2.084"/>
+                <path class="ring-fill" id="moistureRing" stroke-dasharray="0, 100" d="M18 2.084a15.916 15.916 0 0 1 0 31.832A15.916 15.916 0 0 1 18 2.084"/>
+              </svg>
+              <span class="metric-ring-value" id="soilMoisture">—</span>
+            </div>
+            <span class="metric-label">Soil moisture</span>
+          </div>
+
+          <div class="metric-card">
+            <span class="metric-value" id="csi">—</span>
+            <span class="metric-label">Crop stress (CSI)</span>
+          </div>
+
+          <div class="metric-card">
+            <span class="metric-value" id="waterUsed">—</span>
+            <span class="metric-label">Water used</span>
+          </div>
+
+          <div class="metric-card">
+            <span class="metric-value" id="powerUsed">—</span>
+            <span class="metric-label">Power used</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel predictions-panel" aria-labelledby="predictions-heading">
+        <h2 id="predictions-heading" class="panel-heading">
+          <span class="panel-heading-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><path d="M12 6v6l4 2"/></svg>
+          </span>
+          Predicted next day
+        </h2>
+
+        <div class="predictions-grid">
+          <div class="pred-card">
+            <span class="pred-value" id="predWater">—</span>
+            <span class="pred-label">Water</span>
+          </div>
+          <div class="pred-card">
+            <span class="pred-value" id="predPower">—</span>
+            <span class="pred-label">Power</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="footer-crop" id="cropInfo"></span>
+      <span class="footer-update" id="lastUpdate"></span>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

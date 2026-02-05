@@ -1,0 +1,37 @@
+{
+  "serial": {
+    "com_port": "COM13",
+    "baud_rate": 115200,
+    "timeout": 0.1,
+    "auto_detect": true
+  },
+  "devices": {
+    "motor": {
+      "name": "Bore Pump",
+      "gpio": 25,
+      "active_low": true,
+      "flow_rate_l_per_min": 2000.0,
+      "power_watt": 75000.0
+    },
+    "light": {
+      "name": "Grow Light", 
+      "gpio": 26,
+      "active_low": true,
+      "power_watt": 10000.0
+    }
+  },
+  "ml": {
+    "ideal_moisture": 0.65,
+    "stage_weights": {
+      "seedling": 1.2,
+      "vegetative": 1.0,
+      "flowering": 1.1,
+      "fruiting": 1.15
+    }
+  },
+  "ui": {
+    "poll_interval_ms": 2000,
+    "host": "0.0.0.0",
+    "port": 5000
+  }
+}

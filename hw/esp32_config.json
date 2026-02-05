@@ -1,0 +1,15 @@
+{
+  "devices": {
+    "motor": {
+      "gpio": 25,
+      "active_low": true
+    },
+    "light": {
+      "gpio": 26,
+      "active_low": true
+    }
+  },
+  "serial": {
+    "baud_rate": 115200
+  }
+}
