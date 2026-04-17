@@ -206,9 +206,8 @@ body {
 
 /* Relay control */
 .relay-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  display: flex;
+  justify-content: center;
   margin-bottom: 1rem;
 }
 
@@ -218,6 +217,8 @@ body {
   border-radius: var(--radius-sm);
   padding: 1.25rem;
   transition: border-color var(--transition), transform var(--transition);
+  max-width: 320px;
+  width: 100%;
 }
 
 .relay-tile:hover {
@@ -225,7 +226,6 @@ body {
 }
 
 .relay-tile.relay-motor .relay-icon { color: var(--water); }
-.relay-tile.relay-light .relay-icon { color: var(--gold); }
 
 .relay-header {
   display: flex;
@@ -585,7 +585,7 @@ body {
   }
 
   .relay-grid {
-    grid-template-columns: 1fr;
+    justify-content: center;
   }
 
   .analytics-grid {

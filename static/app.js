@@ -27,21 +27,7 @@
     if (offBtn) offBtn.setAttribute("aria-pressed", !on ? "true" : "false");
   }
 
-  function setLightState(on) {
-    const stateEl = el("lightState");
-    const tile = document.querySelector(".relay-light");
-    const onBtn = el("lightOn");
-    const offBtn = el("lightOff");
-    stateEl.textContent = on ? "ON" : "OFF";
-    stateEl.className = "relay-state " + (on ? "state-on" : "state-off");
-    if (tile) {
-      tile.classList.remove("light-on", "light-off");
-      tile.classList.add(on ? "light-on" : "light-off");
-    }
-    if (onBtn) onBtn.setAttribute("aria-pressed", on ? "true" : "false");
-    if (offBtn) offBtn.setAttribute("aria-pressed", !on ? "true" : "false");
-  }
-
+  
   function setMoistureRing(percent) {
     const ring = document.getElementById("moistureRing");
     if (!ring) return;
@@ -66,11 +52,9 @@
 
     if (data.relay) {
       setMotorState(data.relay.motor);
-      setLightState(data.relay.light);
     }
 
     el("motorName").value = data.motor_name || "";
-    el("lightName").value = data.light_name || "";
 
     if (data.virtual) {
       const moisturePct = data.virtual.soil_moisture != null
@@ -164,7 +148,6 @@
       .then((d) => {
         if (d.ok && d.relay) {
           setMotorState(d.relay.motor);
-          setLightState(d.relay.light);
         }
       })
       .catch(() => {});
@@ -172,16 +155,15 @@
 
   function saveNames() {
     const motor_name = (el("motorName") && el("motorName").value) ? el("motorName").value.trim() : "";
-    const light_name = (el("lightName") && el("lightName").value) ? el("lightName").value.trim() : "";
     fetch("/api/rename", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ motor_name, light_name }),
+      body: JSON.stringify({ motor_name }),
     })
       .then((r) => r.json())
       .then((d) => {
         if (d.ok) {
-          showToast("Names saved");
+          showToast("Name saved");
           fetchStatus();
         }
       })
@@ -190,8 +172,6 @@
 
   el("motorOn").addEventListener("click", () => toggle("motor", true));
   el("motorOff").addEventListener("click", () => toggle("motor", false));
-  el("lightOn").addEventListener("click", () => toggle("light", true));
-  el("lightOff").addEventListener("click", () => toggle("light", false));
   if (el("saveNames")) el("saveNames").addEventListener("click", saveNames);
 
   setLoading(true);

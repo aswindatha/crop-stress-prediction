@@ -2,22 +2,38 @@
 
 ## Quick Start
 
-### 1. Use configuration file
+### 1. Setup Virtual Environment (Recommended)
 ```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment
+# On Windows:
+venv\Scripts\activate
+# On Linux/Mac:
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### 2. Run the Application
+```bash
+# Make sure virtual environment is activated, then:
 python app.py
 ```
 
-### 2. Override COM port
+### 3. Override COM port
 ```bash
 python app.py --port COM13
 ```
 
-### 3. List ports and select
+### 4. List ports and select
 ```bash
-python app.py
+python app.py --list-ports
 ```
 
-### 4. Edit configuration
+### 5. Edit configuration
 ```bash
 nano config.json
 ```
@@ -64,5 +80,12 @@ python app.py
 
 ## Requirements
 - Python 3.11+
-- Required packages: `pip install keyboard qrcode-terminal`
+- Virtual environment (recommended)
+- Required packages: `pip install -r requirements.txt`
 - ESP32 with serial connection
+
+## Virtual Environment Benefits
+- Isolated dependencies
+- No system-wide package conflicts
+- Easy reproduction of environment
+- Better security and stability
